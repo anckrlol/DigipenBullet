@@ -9,6 +9,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] string downKey = "s";
     [SerializeField] string leftKey = "a";
     [SerializeField] string rightKey = "d";
+    [SerializeField] string parryKey = "f";
 
     float speed = 5f;
 
@@ -26,6 +27,11 @@ public class PlayerHandler : MonoBehaviour
         else
         {
             speed = 5f;
+        }
+
+        if (Input.GetKey(parryKey));
+        {
+            //for now this does nothing but this is where the parry functionality will go
         }
 
         if (Input.GetKey(upKey))
