@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Acts as a base to create any spell.
+/// Acts as a base to create any spell, damaging or healing.
 /// </summary>
 public class Spell : MonoBehaviour
 {
@@ -9,11 +9,13 @@ public class Spell : MonoBehaviour
     /// <summary>
     /// Positive is damage, negative is heal
     /// </summary>
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
+    private Player player;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class Spell : MonoBehaviour
         
     }
 
-    public void ApplyDamage(){
-        
+    public void Attack(){
+        player.useSpell.Invoke(name, damage);
     }
 }

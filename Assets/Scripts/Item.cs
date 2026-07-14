@@ -1,22 +1,24 @@
-using System.Security;
 using UnityEngine;
 
+/// <summary>
+/// Provides a <i>healAmount</i> variable to determine the heal of the item.
+/// </summary>
 public class Item : MonoBehaviour{
-    private int healAmount;
+    [SerializeField] private string name;
+    [SerializeField] private int healAmount;
+    private Player player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    void Start(){
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         
     }
 
-    void Heal(){
-        
+    public void Heal(){
+        player.useItem.Invoke(name, healAmount);
     }
 }
