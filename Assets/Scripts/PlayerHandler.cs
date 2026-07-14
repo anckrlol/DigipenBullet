@@ -14,7 +14,7 @@ public class PlayerHandler : MonoBehaviour
 
     void Start()
     {
-        
+        transform.position = new Vector3(-3,-3,0);
     }
 
     void FixedUpdate()
@@ -32,7 +32,7 @@ public class PlayerHandler : MonoBehaviour
         {
             transform.position += new Vector3(0f,speed,0f) * Time.deltaTime;
         }
-        else if (Input.GetKey(downKey))
+            else if (Input.GetKey(downKey))
         {
             transform.position += new Vector3(0f,-speed,0f) * Time.deltaTime;
         }
@@ -40,7 +40,6 @@ public class PlayerHandler : MonoBehaviour
         {
             transform.position += new Vector3(0f,0f,0f);
         }
-
 
 
         if (Input.GetKey(rightKey))
