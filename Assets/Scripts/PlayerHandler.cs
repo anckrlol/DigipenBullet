@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using Unity.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
     
     public int playerHealth = 5;
+    [SerializeField] int maxHealth = 5;
     [SerializeField] float parryCooldown = 1;
     [SerializeField] string upKey = "w";
     [SerializeField] string downKey = "s";
@@ -28,6 +30,7 @@ public class PlayerHandler : MonoBehaviour
 
     void FixedUpdate()
     {
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 2f;
@@ -82,7 +85,6 @@ public class PlayerHandler : MonoBehaviour
     {
         if (canParry == true && Input.GetKey(parryKey))
         {
-            Debug.Log("SKADOOSH");
             canParry = false;
             parrying = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
