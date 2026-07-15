@@ -141,6 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityDirection: {x: 0, y: -10, z: 0}
   speed: 0
+  parryable: 0
+  plr: {fileID: 2139278264634780989, guid: e8b59711ca34328469276482387c507c, type: 3}
 --- !u!50 &7566691176700410447
 Rigidbody2D:
   serializedVersion: 5

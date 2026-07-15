@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class TestEnemyScript : MonoBehaviour
 {
@@ -7,12 +8,18 @@ public class TestEnemyScript : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(johnBullets.BasicWave(0.5f));
+
+        StartCoroutine(Attack());
+
+        
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator Attack()
     {
-        
+        for(int i = 0; i < 20; i++)
+        {
+            StartCoroutine(johnBullets.BasicWave(0.5f));
+            yield return new WaitForSeconds(10);
+        }
     }
 }

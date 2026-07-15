@@ -12,6 +12,11 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] string rightKey = "d";
     [SerializeField] string parryKey = "f";
     [SerializeField] float invinsibilityTime = 1f;
+    [SerializeField] float defaultParrySize = 0.7f;
+    [SerializeField] float defaultHurtboxSize = 0.4f;
+
+    public bool parrying = false;
+    bool canParry = true;
 
     bool invinsibile = false;
     float speed = 5f;
@@ -32,10 +37,12 @@ public class PlayerHandler : MonoBehaviour
             speed = 5f;
         }
 
-        if (Input.GetKey(parryKey));
+
+        if (Input.GetKey(parryKey))
         {
-            //for now this does nothing but this is where the parry functionality will go
+            StartCoroutine(parry(parryCooldown));
         }
+
 
         if (Input.GetKey(upKey))
         {
@@ -71,9 +78,28 @@ public class PlayerHandler : MonoBehaviour
         invinsibile = false;
     }
 
+    IEnumerator parry(float tickTock)
+    {
+        if (canParry == true && Input.GetKey(parryKey))
+        {
+            Debug.Log("SKADOOSH");
+            canParry = false;
+            parrying = true;
+            gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
+            gameObject.GetComponent<CircleCollider2D>().radius = defaultParrySize;
+            yield return new WaitForSeconds(0.4f);
+            parrying = false;
+            gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
+            gameObject.GetComponent<CircleCollider2D>().radius = defaultHurtboxSize;
+            yield return new WaitForSeconds(tickTock);
+            canParry = true;
+        }
+
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (invinsibile == false)
+        if (invinsibile == false && parrying == false)
         {
             invinsibile = true;
             playerHealth--;
