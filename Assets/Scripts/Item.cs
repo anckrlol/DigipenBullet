@@ -6,11 +6,11 @@ using UnityEngine;
 public class Item : MonoBehaviour{
     [SerializeField] private string name;
     [SerializeField] private int healAmount;
-    private Player player;
+    private PlayerHandler player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
     }
 
     // Update is called once per frame

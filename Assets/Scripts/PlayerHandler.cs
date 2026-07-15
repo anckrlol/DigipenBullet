@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.InputSystem;
+using System;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -16,6 +19,13 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] float invinsibilityTime = 1f;
     [SerializeField] float defaultParrySize = 0.7f;
     [SerializeField] float defaultHurtboxSize = 0.4f;
+    [SerializeField] TextMeshProUGUI healthText;
+
+    private int attackDamage;
+    private Rigidbody2D rb; 
+    public Action<string, int> useSpell;
+    public Action<string, int> useItem;
+    private Enemy enemy;
 
     public bool parrying = false;
     bool canParry = true;
@@ -26,10 +36,18 @@ public class PlayerHandler : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(-3,-3,0);
+
+        currentHealth = maxHealth;
+        rb = GetComponent<Rigidbody2D>();
+        useItem += ItemUsed;
+        useSpell += SpellUsed;
+        enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
     }
 
     void FixedUpdate()
     {
+
+        healthText.text = $"{currentHealth.ToString()} hp";
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -73,6 +91,8 @@ public class PlayerHandler : MonoBehaviour
         {
             transform.position += new Vector3(0f,0f,0f);
         }
+
+
     }
 
     IEnumerator waitIframes(float tickTock)
@@ -110,5 +130,20 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+
+
+
+    void ItemUsed(string name, int healAmount){
+        currentHealth = Mathf.Clamp(currentHealth + healAmount, 0, maxHealth);
+        Debug.Log($"{name} healed {healAmount}, HP: {currentHealth}/{maxHealth}");
+    }
+
+    void SpellUsed(string name, int damageAmount){
+        if (damageAmount < 0){ 
+            useItem.Invoke(name, -damageAmount);
+        } else {
+            enemy.incomingDamage.Invoke(name, damageAmount);
+        }
+    }
 
 }
