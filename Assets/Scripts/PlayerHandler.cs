@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
-using Unity.UI;
+using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
     
-    public int playerHealth = 5;
+    public int currentHealth = 5;
     [SerializeField] int maxHealth = 5;
     [SerializeField] float parryCooldown = 1;
     [SerializeField] string upKey = "w";
@@ -104,7 +104,7 @@ public class PlayerHandler : MonoBehaviour
         if (invinsibile == false && parrying == false)
         {
             invinsibile = true;
-            playerHealth--;
+            currentHealth--;
             StartCoroutine(waitIframes(invinsibilityTime));
 
         }
