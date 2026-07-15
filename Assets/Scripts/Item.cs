@@ -3,10 +3,12 @@ using UnityEngine;
 /// <summary>
 /// Provides a <i>healAmount</i> variable to determine the heal of the item.
 /// </summary>
+
 public class Item : MonoBehaviour{
-    [SerializeField] private string name;
-    [SerializeField] private int healAmount;
-    private PlayerHandler player;
+    public Item(string spellName, int healAmount){
+        this.spellName = spellName;
+        this.healAmount = healAmount;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -19,6 +21,7 @@ public class Item : MonoBehaviour{
     }
 
     public void Heal(){
-        player.useItem.Invoke(name, healAmount);
+        Debug.Log(player.useItem == null);
+        player.useItem?.Invoke(name, healAmount);
     }
 }
