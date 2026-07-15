@@ -5,6 +5,8 @@ public class BulletPatterns : MonoBehaviour
 {
     [SerializeField] GameObject basicBullet;
 
+
+
     public IEnumerator BasicWave(float tickTock)
     {
         for(int i = 0; i < 10; i++)
@@ -13,12 +15,49 @@ public class BulletPatterns : MonoBehaviour
             Vector3 randomPos = new Vector3(randomX,5f,0f);
             GameObject bulletlol = GameObject.Instantiate(basicBullet);
             bulletlol.transform.position = randomPos;
+            bulletlol.transform.rotation = Quaternion.Euler(0f,0f,-180f);
 
             Despawn dScript = basicBullet.GetComponent<Despawn>();
 
             dScript.velocityDirection = new Vector3(0f,-14f,0f);
             dScript.speed = 10f;
 
+
+            yield return new WaitForSeconds(tickTock);
+        }
+    }
+
+
+
+    public IEnumerator WallShoot(float tickTock)
+    {
+        for(int i = 0; i < 20; i++)
+        {
+            float randomY = Random.Range(-4f,3f);
+            float randomWall = Random.Range(1f,4f);
+            Vector3 randomPos = new Vector3(0f,0f,0f);
+            GameObject bulletlol = GameObject.Instantiate(basicBullet);
+
+            Despawn dScript = basicBullet.GetComponent<Despawn>();
+
+            if (randomWall >= 2)
+            {
+                randomPos = new Vector3(-7f,randomY,0f);
+                dScript.velocityDirection = new Vector3(10f,0f,0f);
+                bulletlol.transform.rotation = Quaternion.Euler(0f,0f,-90f);
+                dScript.speed = 10f;
+                bulletlol.transform.position = randomPos;
+            }
+            else
+            {
+                randomPos = new Vector3(0.5f,randomY,0f);
+                dScript.velocityDirection = new Vector3(10f,0f,0f);
+                bulletlol.transform.rotation = Quaternion.Euler(0f,0f,90f);
+                dScript.speed = -10f;
+                bulletlol.transform.position = randomPos;
+            }
+            
+            
 
             yield return new WaitForSeconds(tickTock);
         }
