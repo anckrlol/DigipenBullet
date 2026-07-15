@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] string leftKey = "a";
     [SerializeField] string rightKey = "d";
     [SerializeField] string parryKey = "f";
+    [SerializeField] float invinsibilityTime = 1f;
 
+    bool invinsibile = false;
     float speed = 5f;
 
     void Start()
@@ -59,6 +62,23 @@ public class PlayerHandler : MonoBehaviour
         else
         {
             transform.position += new Vector3(0f,0f,0f);
+        }
+    }
+
+    IEnumerator waitIframes(float tickTock)
+    {
+        yield return new WaitForSeconds(tickTock);
+        invinsibile = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (invinsibile == false)
+        {
+            invinsibile = true;
+            playerHealth--;
+            StartCoroutine(waitIframes(invinsibilityTime));
+
         }
     }
 
