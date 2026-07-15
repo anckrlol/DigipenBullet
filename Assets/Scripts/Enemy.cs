@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        incomingDamage += TakeDamage;
+        incomingDamage += TakeSpellDamage;
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    void TakeDamage(string spellName, int damageAmount){
+    void TakeSpellDamage(string spellName, int damageAmount){
         currentHealth = Mathf.Clamp(currentHealth - damageAmount, 0, maxHealth);
         Debug.Log($"{spellName} dealt {damageAmount}, HP: {currentHealth}/{maxHealth}");
     }
