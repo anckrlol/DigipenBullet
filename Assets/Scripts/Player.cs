@@ -6,7 +6,6 @@ public class Player : MonoBehaviour{
     private int maxHealth = 5;
     private int currentHealth;
     private int attackDamage;
-    [SerializeField] private float moveSpeed = 5;
     private Rigidbody2D rb; 
     public Action<string, int> useSpell;
     public Action<string, int> useItem;
@@ -19,22 +18,6 @@ public class Player : MonoBehaviour{
         useItem += ItemUsed;
         useSpell += SpellUsed;
         enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
-    }
-
-    // Update is called once per frame
-    void Update(){
-        if (Keyboard.current.leftArrowKey.isPressed){
-            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-        } 
-        if (Keyboard.current.rightArrowKey.isPressed){
-            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        } 
-        if (Keyboard.current.upArrowKey.isPressed){
-            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
-        } 
-        if (Keyboard.current.downArrowKey.isPressed){
-            transform.position += Vector3.down * moveSpeed * Time.deltaTime;
-        }
     }
 
     void ItemUsed(string name, int healAmount){

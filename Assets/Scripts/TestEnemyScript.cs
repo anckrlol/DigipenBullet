@@ -20,6 +20,12 @@ public class TestEnemyScript : MonoBehaviour
         {
             StartCoroutine(johnBullets.BasicWave(0.5f));
             yield return new WaitForSeconds(10);
+            StartCoroutine(johnBullets.WallShoot(0.5f));
+            yield return new WaitForSeconds(10);
+            StartCoroutine(johnBullets.BasicWave(0.5f));
+            yield return new WaitForSeconds(2);
+            StartCoroutine(johnBullets.WallShoot(0.5f));
+            yield return new WaitForSeconds(10);
         }
     }
 }
