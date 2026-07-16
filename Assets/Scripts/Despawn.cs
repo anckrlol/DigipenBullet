@@ -13,9 +13,15 @@ public class Despawn : MonoBehaviour
     {
         mainObj = GetComponent<Rigidbody2D>();
         mainObj.linearVelocity = velocityDirection * speed * Time.deltaTime;
-        if (parryable == true)
+        if (gameObject.tag == "ParryableBullet")
         {
             gameObject.GetComponent<SpriteRenderer>().color = new Color(0,255,120);
+            parryable = true;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(100,0,0);
+            parryable = false;
         }
     }
 

@@ -4,31 +4,47 @@ using System.Collections;
 public class PlayerHandler : MonoBehaviour
 {
     
+    [Header("Health Stats")]
     public int currentHealth = 5;
     [SerializeField] int maxHealth = 5;
-    [SerializeField] float parryCooldown = 1;
+
+    [Header("Controls")]
     [SerializeField] string upKey = "w";
     [SerializeField] string downKey = "s";
     [SerializeField] string leftKey = "a";
     [SerializeField] string rightKey = "d";
     [SerializeField] string parryKey = "f";
+
+    [Header("Player Config")]
     [SerializeField] float invinsibilityTime = 1f;
+    [SerializeField] float parryCooldown = 1;
     [SerializeField] float defaultParrySize = 0.7f;
     [SerializeField] float defaultHurtboxSize = 0.4f;
     [SerializeField] private TurnManager turnManager;
     private Player player;
 
+    [Header("Sound Effects")]
+    [SerializeField] AudioClip playerHitSound;
+    [SerializeField] AudioClip parryStartSound;
+    [SerializeField] AudioClip parryHitSound;
+
+    [Header("Particles")]
+    [SerializeField] ParticleSystem parryEffect;
+
+    [HideInInspector]
     public bool parrying = false;
     bool canParry = true;
 
     bool invinsibile = false;
     float speed = 5f;
+    AudioSource audioSource;
 
     void Start()
     {
         transform.position = new Vector3(-3,-3,0);
         player = GetComponent<Player>();
         currentHealth = maxHealth;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -82,6 +98,12 @@ public class PlayerHandler : MonoBehaviour
 
     }
 
+    void playSound(AudioClip soundLmao)
+    {
+        audioSource.clip = soundLmao;
+        audioSource.Play();
+    }
+
     IEnumerator waitIframes(float tickTock)
     {
         yield return new WaitForSeconds(tickTock);
@@ -92,6 +114,7 @@ public class PlayerHandler : MonoBehaviour
     {
         if (canParry == true && Input.GetKey(parryKey))
         {
+            playSound(parryStartSound);
             canParry = false;
             parrying = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
@@ -108,11 +131,27 @@ public class PlayerHandler : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (invinsibile == false && parrying == false)
+        if (invinsibile == false && col.tag == "Bullet")
         {
             invinsibile = true;
+            playSound(playerHitSound);
             currentHealth--;
             player.hitByBullet?.Invoke(-1);
+            StartCoroutine(waitIframes(invinsibilityTime));
+        }
+        else if (invinsibile == false && parrying == true && col.tag == "ParryableBullet")
+        {
+            parryEffect.Clear();
+            parryEffect.Play();
+            playSound(parryHitSound);
+            invinsibile = true;
+            StartCoroutine(waitIframes(invinsibilityTime));
+        }
+        else if (invinsibile == false)
+        {
+            invinsibile = true;
+            playSound(playerHitSound);
+            currentHealth--;
             StartCoroutine(waitIframes(invinsibilityTime));
         }
     }
