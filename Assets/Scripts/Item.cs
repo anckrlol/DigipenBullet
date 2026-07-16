@@ -3,13 +3,13 @@ using UnityEngine;
 /// <summary>
 /// Provides a <i>healAmount</i> variable to determine the heal of the item.
 /// </summary>
-public class Item : ScriptableObject{
-    private string spellName;
+public class Item{
+    private string itemName;
     private int healAmount;
     private Player player;
 
-    public Item(string spellName, int healAmount){
-        this.spellName = spellName;
+    public Item(string itemName, int healAmount){
+        this.itemName = itemName;
         this.healAmount = healAmount;
     }
 
@@ -24,7 +24,6 @@ public class Item : ScriptableObject{
     }
 
     public void Heal(){
-        Debug.Log(player.useItem == null);
-        player.useItem?.Invoke(name, healAmount);
+        player.useItem?.Invoke(itemName, healAmount);
     }
 }

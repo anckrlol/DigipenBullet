@@ -20,15 +20,11 @@ public class Spell{
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log(player.gameObject);
     }
 
     public void Attack(){
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         player.useSpell?.Invoke(spellName, damage);
     }
 }

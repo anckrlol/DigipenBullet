@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -16,6 +15,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] float invinsibilityTime = 1f;
     [SerializeField] float defaultParrySize = 0.7f;
     [SerializeField] float defaultHurtboxSize = 0.4f;
+    [SerializeField] private TurnManager turnManager;
 
     public bool parrying = false;
     bool canParry = true;
@@ -28,50 +28,52 @@ public class PlayerHandler : MonoBehaviour
         transform.position = new Vector3(-3,-3,0);
     }
 
-    void FixedUpdate()
+    void Update()
     {
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (turnManager.enemyTurn)
         {
-            speed = 2f;
-        }
-        else
-        {
-            speed = 5f;
-        }
-
-
-        if (Input.GetKey(parryKey))
-        {
-            StartCoroutine(parry(parryCooldown));
-        }
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = 2f;
+            }
+            else
+            {
+                speed = 5f;
+            }
 
 
-        if (Input.GetKey(upKey))
-        {
-            transform.position += new Vector3(0f,speed,0f) * Time.deltaTime;
-        }
-            else if (Input.GetKey(downKey))
-        {
-            transform.position += new Vector3(0f,-speed,0f) * Time.deltaTime;
-        }
-        else
-        {
-            transform.position += new Vector3(0f,0f,0f);
-        }
+            if (Input.GetKey(parryKey))
+            {
+                StartCoroutine(parry(parryCooldown));
+            }
 
 
-        if (Input.GetKey(rightKey))
-        {
-            transform.position += new Vector3(speed,0f,0f) * Time.deltaTime;
-        }
-        else if (Input.GetKey(leftKey))
-        {
-            transform.position += new Vector3(-speed,0f,0f) * Time.deltaTime;
-        }
-        else
-        {
-            transform.position += new Vector3(0f,0f,0f);
+            if (Input.GetKey(upKey))
+            {
+                transform.position += new Vector3(0f,speed,0f) * Time.deltaTime;
+            }
+                else if (Input.GetKey(downKey))
+            {
+                transform.position += new Vector3(0f,-speed,0f) * Time.deltaTime;
+            }
+            else
+            {
+                transform.position += new Vector3(0f,0f,0f);
+            }
+
+
+            if (Input.GetKey(rightKey))
+            {
+                transform.position += new Vector3(speed,0f,0f) * Time.deltaTime;
+            }
+            else if (Input.GetKey(leftKey))
+            {
+                transform.position += new Vector3(-speed,0f,0f) * Time.deltaTime;
+            }
+            else
+            {
+                transform.position += new Vector3(0f,0f,0f);
+            }
         }
     }
 

@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/BossFight.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/StartScreen.unity
+    guid: f2b575beac9b9344391c30f632756c61
   - enabled: 1
     path: Assets/Scenes/TutorialFight.unity
     guid: ffb84d71c62af5041983733efe971492
+  - enabled: 0
+    path: Assets/Scenes/BossFight.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 0
+    path: Assets/Scenes/EndScreen.unity
+    guid: 431b8a1b271651c4890907913f9cfe4a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
