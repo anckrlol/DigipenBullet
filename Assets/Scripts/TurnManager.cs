@@ -53,15 +53,15 @@ public class TurnManager : MonoBehaviour
         playerTurn = false;
         enemyTurn = true;
         enemyAttack.beginAttack?.Invoke();
-        enemyActive.color = inactive;
-        playerActive.color = active;
+        enemyActive.enabled = false;
+        playerActive.enabled = true;
         player.transform.position = new Vector2(-2.75f, -3);
     }
 
     void PlayerTurn(bool state){
         if (state){
-            enemyActive.color = active;
-            playerActive.color = inactive;
+            enemyActive.enabled = true;
+            playerActive.enabled = false;
             playerTurn = true;
         } else {
             playerTurn = false;
