@@ -16,10 +16,12 @@ public class Spell : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        Debug.Log(player.gameObject);
     }
 
     public void Attack(){
-        player.useSpell.Invoke(name, damage);
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player.useSpell?.Invoke(spellName, damage);
     }
 }

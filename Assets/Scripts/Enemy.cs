@@ -1,17 +1,17 @@
 using System;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour{
     private int maxHealth = 50;
     private int currentHealth;
-    public Action<string, int> incomingDamage;
+    public Action<int> incomingDamage;
+    [SerializeField] private CombatLog combatLog;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth;
-        incomingDamage += TakeSpellDamage;
+        incomingDamage += TakeDamage;
     }
 
     // Update is called once per frame
@@ -20,8 +20,10 @@ public class Enemy : MonoBehaviour
         
     }
 
-    void TakeSpellDamage(string spellName, int damageAmount){
-        currentHealth = Mathf.Clamp(currentHealth - damageAmount, 0, maxHealth);
-        Debug.Log($"{spellName} dealt {damageAmount}, HP: {currentHealth}/{maxHealth}");
+    void TakeDamage(int damage){
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
+        if (currentHealth == 0){
+            combatLog.incomingLog.Invoke("You defeated the enemy!");
+        }
     }
 }

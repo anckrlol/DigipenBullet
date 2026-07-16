@@ -1,9 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.InputSystem;
-using System;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -19,13 +15,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] float invinsibilityTime = 1f;
     [SerializeField] float defaultParrySize = 0.7f;
     [SerializeField] float defaultHurtboxSize = 0.4f;
-    [SerializeField] TextMeshProUGUI healthText;
-
-    private int attackDamage;
-    private Rigidbody2D rb; 
-    public Action<string, int> useSpell;
-    public Action<string, int> useItem;
-    private Enemy enemy;
+    [SerializeField] private TurnManager turnManager;
 
     public bool parrying = false;
     bool canParry = true;
@@ -44,52 +34,52 @@ public class PlayerHandler : MonoBehaviour
         enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-
-        healthText.text = $"{currentHealth.ToString()} hp";
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (turnManager.enemyTurn)
         {
-            speed = 2f;
-        }
-        else
-        {
-            speed = 5f;
-        }
-
-
-        if (Input.GetKey(parryKey))
-        {
-            StartCoroutine(parry(parryCooldown));
-        }
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = 2f;
+            }
+            else
+            {
+                speed = 5f;
+            }
 
 
-        if (Input.GetKey(upKey))
-        {
-            transform.position += new Vector3(0f,speed,0f) * Time.deltaTime;
-        }
-            else if (Input.GetKey(downKey))
-        {
-            transform.position += new Vector3(0f,-speed,0f) * Time.deltaTime;
-        }
-        else
-        {
-            transform.position += new Vector3(0f,0f,0f);
-        }
+            if (Input.GetKey(parryKey))
+            {
+                StartCoroutine(parry(parryCooldown));
+            }
 
 
-        if (Input.GetKey(rightKey))
-        {
-            transform.position += new Vector3(speed,0f,0f) * Time.deltaTime;
-        }
-        else if (Input.GetKey(leftKey))
-        {
-            transform.position += new Vector3(-speed,0f,0f) * Time.deltaTime;
-        }
-        else
-        {
-            transform.position += new Vector3(0f,0f,0f);
+            if (Input.GetKey(upKey))
+            {
+                transform.position += new Vector3(0f,speed,0f) * Time.deltaTime;
+            }
+                else if (Input.GetKey(downKey))
+            {
+                transform.position += new Vector3(0f,-speed,0f) * Time.deltaTime;
+            }
+            else
+            {
+                transform.position += new Vector3(0f,0f,0f);
+            }
+
+
+            if (Input.GetKey(rightKey))
+            {
+                transform.position += new Vector3(speed,0f,0f) * Time.deltaTime;
+            }
+            else if (Input.GetKey(leftKey))
+            {
+                transform.position += new Vector3(-speed,0f,0f) * Time.deltaTime;
+            }
+            else
+            {
+                transform.position += new Vector3(0f,0f,0f);
+            }
         }
 
 

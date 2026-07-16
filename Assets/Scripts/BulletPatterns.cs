@@ -11,7 +11,7 @@ public class BulletPatterns : MonoBehaviour
         {
             float randomX = Random.Range(-5.4f,-0.2f);
             Vector3 randomPos = new Vector3(randomX,5f,0f);
-            GameObject bulletlol = GameObject.Instantiate(basicBullet);
+            GameObject bulletlol = Instantiate(basicBullet, transform);
             bulletlol.transform.position = randomPos;
             bulletlol.transform.rotation = Quaternion.Euler(0f,0f,-180f);
 
@@ -45,7 +45,7 @@ public class BulletPatterns : MonoBehaviour
             float randomY = Random.Range(-4f,3f);
             float randomWall = Random.Range(1f,4f);
             Vector3 randomPos = new Vector3(0f,0f,0f);
-            GameObject bulletlol = GameObject.Instantiate(basicBullet);
+            GameObject bulletlol = Instantiate(basicBullet, transform);
             Despawn dScript = basicBullet.GetComponent<Despawn>();
 
             dScript.parryable = false;
