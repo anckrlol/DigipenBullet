@@ -3,18 +3,15 @@ using UnityEngine;
 /// <summary>
 /// Acts as a base to create any spell, damaging or healing.
 /// </summary>
-public class Spell{
-    private string spellName;
+public class Spell : MonoBehaviour
+{
+    [SerializeField] private string name;
     /// <summary>
     /// Positive is damage, negative is heal
     /// </summary>
-    private int damage;
-    private Player player;
+    [SerializeField] private int damage;
+    private PlayerHandler player;
 
-    public Spell(string spellName, int damage){
-        this.spellName = spellName;
-        this.damage = damage;
-    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
