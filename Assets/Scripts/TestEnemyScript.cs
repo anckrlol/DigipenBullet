@@ -28,15 +28,11 @@ public class TestEnemyScript : MonoBehaviour
             yield return new WaitForSeconds(10);
             StartCoroutine(johnBullets.WallShoot(0.5f));
             yield return new WaitForSeconds(10);
-            StartCoroutine(johnBullets.BasicWave(0.5f));
-            yield return new WaitForSeconds(2);
-            StartCoroutine(johnBullets.WallShoot(0.5f));
-            yield return new WaitForSeconds(10);
         // }
     }
     
     IEnumerator AttackFinished(){
-        yield return new WaitForSeconds(35);
+        yield return new WaitForSeconds(24);
         turnManager.playerTurnState?.Invoke(true);
     }
     

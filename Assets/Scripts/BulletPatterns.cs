@@ -22,13 +22,13 @@ public class BulletPatterns : MonoBehaviour
             dScript.velocityDirection = new Vector3(0f,-14f,0f);
             dScript.speed = 10f;
 
-            if (i == 5 || i == 10)
+            if (i == 1 || i == 4 || i == 9)
             {
-                dScript.parryable = true;
+                bulletlol.tag = "ParryableBullet";
             }
             else
             {
-                dScript.parryable = false;
+                bulletlol.tag = "Bullet";
             }
 
 
@@ -37,44 +37,31 @@ public class BulletPatterns : MonoBehaviour
     }
 
 
-// very buggy for now, dont use!
     public IEnumerator WallShoot(float tickTock)
     {
         for(int i = 0; i < 20; i++)
         {
             float randomY = Random.Range(-4f,3f);
-            float randomWall = Random.Range(1f,4f);
             Vector3 randomPos = new Vector3(0f,0f,0f);
             GameObject bulletlol = Instantiate(basicBullet, transform);
             Despawn dScript = basicBullet.GetComponent<Despawn>();
 
             dScript.parryable = false;
             
-            if (i == 4 || i == 8 || i == 12 || i ==20)
+            if (i == 3 || i == 7 || i == 11 || i ==19)
             {
-                dScript.parryable = true;
+                bulletlol.tag = "ParryableBullet";
             }
             else
             {
-                dScript.parryable = false;
+                bulletlol.tag = "Bullet";
             }
 
-            if (randomWall >= 2)
-            {
                 randomPos = new Vector3(-7f,randomY,0f);
                 dScript.velocityDirection = new Vector3(10f,0f,0f);
                 bulletlol.transform.rotation = Quaternion.Euler(0f,0f,-90f);
                 dScript.speed = 10f;
                 bulletlol.transform.position = randomPos;
-            }
-            else
-            {
-                randomPos = new Vector3(0.5f,randomY,0f);
-                dScript.velocityDirection = new Vector3(10f,0f,0f);
-                bulletlol.transform.rotation = Quaternion.Euler(0f,0f,90f);
-                dScript.speed = 10f;
-                bulletlol.transform.position = randomPos;
-            }
             
 
 
