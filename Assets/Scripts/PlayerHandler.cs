@@ -26,12 +26,7 @@ public class PlayerHandler : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(-3,-3,0);
-
         currentHealth = maxHealth;
-        rb = GetComponent<Rigidbody2D>();
-        useItem += ItemUsed;
-        useSpell += SpellUsed;
-        enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
     }
 
     void Update()
@@ -119,21 +114,4 @@ public class PlayerHandler : MonoBehaviour
 
         }
     }
-
-
-
-
-    void ItemUsed(string name, int healAmount){
-        currentHealth = Mathf.Clamp(currentHealth + healAmount, 0, maxHealth);
-        Debug.Log($"{name} healed {healAmount}, HP: {currentHealth}/{maxHealth}");
-    }
-
-    void SpellUsed(string name, int damageAmount){
-        if (damageAmount < 0){ 
-            useItem.Invoke(name, -damageAmount);
-        } else {
-            enemy.incomingDamage.Invoke(name, damageAmount);
-        }
-    }
-
 }
