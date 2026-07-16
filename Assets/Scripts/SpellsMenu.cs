@@ -36,7 +36,7 @@ public class SpellsMenu : MonoBehaviour{
 
     void DisplaySpells(string menu){
         if (menu == "spells"){
-            combatLog.DisplayMenu($"Fireball (E)\n{tabSpace} 15 damage\nRejuvenation (R)\n{tabSpace} Heal 1");
+            combatLog.DisplayMenu($"Fireball (E)\n{tabSpace} 15 damage\nRejuvenation (R)\n{tabSpace} Heal 2");
             onSpellsMenu = true;
         }
     }

@@ -16,6 +16,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] float defaultParrySize = 0.7f;
     [SerializeField] float defaultHurtboxSize = 0.4f;
     [SerializeField] private TurnManager turnManager;
+    private Player player;
 
     public bool parrying = false;
     bool canParry = true;
@@ -26,6 +27,7 @@ public class PlayerHandler : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(-3,-3,0);
+        player = GetComponent<Player>();
         currentHealth = maxHealth;
     }
 
@@ -110,8 +112,8 @@ public class PlayerHandler : MonoBehaviour
         {
             invinsibile = true;
             currentHealth--;
+            player.hitByBullet?.Invoke(-1);
             StartCoroutine(waitIframes(invinsibilityTime));
-
         }
     }
 }
