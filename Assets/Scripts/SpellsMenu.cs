@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+/*using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -45,3 +45,4 @@ public class SpellsMenu : MonoBehaviour{
         }
     }
 }
+*/

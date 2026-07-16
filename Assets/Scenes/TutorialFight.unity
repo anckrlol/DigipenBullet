@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1151237756}
+      - m_Target: {fileID: 1151237760}
         m_TargetAssemblyTypeName: Spell, Assembly-CSharp
         m_MethodName: Attack
         m_Mode: 1
@@ -858,7 +858,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1151237758}
+      - m_Target: {fileID: 1151237759}
         m_TargetAssemblyTypeName: Spell, Assembly-CSharp
         m_MethodName: Attack
         m_Mode: 1
@@ -1924,7 +1924,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1151237755}
+      - m_Target: {fileID: 1151237758}
         m_TargetAssemblyTypeName: Item, Assembly-CSharp
         m_MethodName: Heal
         m_Mode: 1
@@ -2466,6 +2466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baaff82db2a254e36b2068c413b8a985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 5
 --- !u!1 &1151237751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2478,9 +2479,9 @@ GameObject:
   - component: {fileID: 1151237753}
   - component: {fileID: 1151237752}
   - component: {fileID: 1151237757}
-  - component: {fileID: 1151237756}
+  - component: {fileID: 1151237760}
+  - component: {fileID: 1151237759}
   - component: {fileID: 1151237758}
-  - component: {fileID: 1151237755}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2562,34 +2563,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1151237755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151237751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ee1755fe084400c824ad8505a36752, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Dark Candy
-  healAmount: 1
---- !u!114 &1151237756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151237751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b5d505eb24454ac09f04c491a009a9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Fireball
-  damage: 10
 --- !u!114 &1151237757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2643,11 +2616,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1151237751}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ee1755fe084400c824ad8505a36752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Dark Candy
+  healAmount: 1
+--- !u!114 &1151237759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151237751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b5d505eb24454ac09f04c491a009a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   name: Heal Prayer
   damage: -1
+--- !u!114 &1151237760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151237751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5d505eb24454ac09f04c491a009a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Fireball
+  damage: 10
 --- !u!1 &1185851539
 GameObject:
   m_ObjectHideFlags: 0
