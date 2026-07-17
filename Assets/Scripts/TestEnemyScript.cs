@@ -32,7 +32,7 @@ public class TestEnemyScript : MonoBehaviour
     }
     
     IEnumerator AttackFinished(){
-        yield return new WaitForSeconds(16);
+        yield return new WaitForSeconds(200);
         turnManager.playerTurnState?.Invoke(true);
     }
     
