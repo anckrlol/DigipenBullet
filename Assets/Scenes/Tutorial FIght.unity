@@ -6765,10 +6765,10 @@ GameObject:
   - component: {fileID: 1228649809}
   - component: {fileID: 1228649808}
   - component: {fileID: 1228649806}
-  - component: {fileID: 1228649813}
   - component: {fileID: 1228649807}
   - component: {fileID: 1228649811}
   - component: {fileID: 1228649812}
+  - component: {fileID: 1228649814}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6814,8 +6814,8 @@ MonoBehaviour:
   parryStartSound: {fileID: 8300000, guid: 0f3be1661c71a69428da6d6de25b317e, type: 3}
   parryHitSound: {fileID: 8300000, guid: 42ea78d7c5aa95e4184c47d8d7f5eeb4, type: 3}
   parryEffect: {fileID: 954349435}
-  baseSprite: {fileID: -1966381394238714707, guid: a5708234b0f65bf46924e05f9612aa3c, type: 3}
-  hurtSprite: {fileID: 3341946735473563259, guid: 58d0d394248e0164ca902677b79b4b01, type: 3}
+  baseSprite: {fileID: 9119549463136492614, guid: 1a19e720aff37d14f90fe0886a7f1177, type: 3}
+  hurtSprite: {fileID: 3513137472396048495, guid: 4f0af489d7feb4c49aad221c205a29f2, type: 3}
   parrying: 0
 --- !u!50 &1228649807
 Rigidbody2D:
@@ -7084,26 +7084,28 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &1228649813
-MonoBehaviour:
+--- !u!95 &1228649814
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228649804}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2678c34d942083d4da0fd4dba67a63bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emptyHeart: {fileID: -1184286366367508762, guid: 15492ed0db3a46d4e9a6b31e4cc1abf3, type: 3}
-  fullHeart: {fileID: -3296372939809681263, guid: 38e6d0c4a30b2c641b5724f37ca17806, type: 3}
-  hearts:
-  - {fileID: 1132746071}
-  - {fileID: 889598408}
-  - {fileID: 2113223180}
-  - {fileID: 1945581997}
-  - {fileID: 1594175016}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 743bc3d3a822d4443b8791aa3b56f787, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1281087809
 GameObject:
   m_ObjectHideFlags: 0
