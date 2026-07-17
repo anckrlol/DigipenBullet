@@ -1,12 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using System;
+using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
     
-    [Header("Health Stats")]
+    [Header("Health Config")]
     public int currentHealth = 5;
     [SerializeField] int maxHealth = 5;
+    public Sprite emptyHeart;
+    public Sprite fullHeart;
+    public Image[] hearts;
+    public bool dead = false;
 
     [Header("Controls")]
     [SerializeField] string upKey = "w";
@@ -21,7 +27,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] float defaultParrySize = 0.7f;
     [SerializeField] float defaultHurtboxSize = 0.4f;
     [SerializeField] private TurnManager turnManager;
-    private Player player;
+    [SerializeField] private CombatLog combatLog;
 
     [Header("Sound Effects")]
     [SerializeField] AudioClip playerHitSound;
@@ -31,9 +37,18 @@ public class PlayerHandler : MonoBehaviour
     [Header("Particles")]
     [SerializeField] ParticleSystem parryEffect;
 
+    [Header("Sprites")]
+    [SerializeField] Sprite baseSprite;
+    [SerializeField] Sprite hurtSprite;
+
     [HideInInspector]
     public bool parrying = false;
     bool canParry = true;
+    SpriteRenderer spriteR;
+
+    public Action<string, int> useSpell = null;
+    public Action<string, int> useItem = null;
+    private Enemy enemy;
 
     bool invinsibile = false;
     float speed = 5f;
@@ -41,9 +56,15 @@ public class PlayerHandler : MonoBehaviour
 
     void Start()
     {
+        spriteR = GetComponent<SpriteRenderer>();
+        
         transform.position = new Vector3(-3,-3,0);
         player = GetComponent<Player>();
         currentHealth = maxHealth;
+        useItem += ItemUsed;
+        useSpell += SpellUsed;
+        enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -96,6 +117,33 @@ public class PlayerHandler : MonoBehaviour
         }
 
 
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < currentHealth)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+
+            if (i < maxHealth)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            dead = true;
+        }
     }
 
     void playSound(AudioClip soundLmao)
@@ -106,8 +154,10 @@ public class PlayerHandler : MonoBehaviour
 
     IEnumerator waitIframes(float tickTock)
     {
+        spriteR.sprite = hurtSprite;
         yield return new WaitForSeconds(tickTock);
         invinsibile = false;
+        spriteR.sprite = baseSprite;
     }
 
     IEnumerator parry(float tickTock)
@@ -153,6 +203,26 @@ public class PlayerHandler : MonoBehaviour
             playSound(playerHitSound);
             currentHealth--;
             StartCoroutine(waitIframes(invinsibilityTime));
+        }
+    }
+
+
+
+    
+    void ItemUsed(string name, int healAmount){
+        currentHealth = Mathf.Clamp(currentHealth + healAmount, 0, maxHealth);
+        string healedText = $"{name} healed {healAmount} heart";
+        if (healAmount > 1) healedText += "s";
+        healedText += "!";
+        combatLog.incomingLog?.Invoke(healedText);
+    }
+
+    void SpellUsed(string name, int damageAmount){
+        if (damageAmount < 0){ 
+            ItemUsed(name, -damageAmount);
+        } else {
+            enemy.incomingDamage?.Invoke(damageAmount);
+            combatLog.incomingLog?.Invoke($"{name} dealt {damageAmount} damage!");
         }
     }
 }

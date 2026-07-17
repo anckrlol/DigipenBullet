@@ -6,7 +6,7 @@ using UnityEngine;
 public class Item{
     private string itemName;
     private int healAmount;
-    private Player player;
+    private PlayerHandler player;
 
     public Item(string itemName, int healAmount){
         this.itemName = itemName;
@@ -15,7 +15,7 @@ public class Item{
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
     }
 
     // Update is called once per frame
