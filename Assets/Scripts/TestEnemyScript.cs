@@ -24,15 +24,15 @@ public class TestEnemyScript : MonoBehaviour
     {
         // for(int i = 0; i < 20; i++)
         // {
-            StartCoroutine(johnBullets.BasicWave(0.5f));
+            StartCoroutine(johnBullets.BasicWave(0.3f));
+            yield return new WaitForSeconds(5);
+            StartCoroutine(johnBullets.WallShoot(0.4f));
             yield return new WaitForSeconds(8);
-            StartCoroutine(johnBullets.WallShoot(0.5f));
-            yield return new WaitForSeconds(10);
         // }
     }
     
     IEnumerator AttackFinished(){
-        yield return new WaitForSeconds(22);
+        yield return new WaitForSeconds(16);
         turnManager.playerTurnState?.Invoke(true);
     }
     

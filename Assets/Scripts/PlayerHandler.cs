@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -30,9 +31,19 @@ public class PlayerHandler : MonoBehaviour
     [Header("Particles")]
     [SerializeField] ParticleSystem parryEffect;
 
+    [Header("Sprites")]
+    [SerializeField] Sprite baseSprite;
+    [SerializeField] Sprite hurtSprite;
+
     [HideInInspector]
     public bool parrying = false;
     bool canParry = true;
+    SpriteRenderer spriteR;
+
+    [SerializeField] private CombatLog combatLog;
+    public Action<string, int> useSpell = null;
+    public Action<string, int> useItem = null;
+    private Enemy enemy;
 
     bool invinsibile = false;
     float speed = 5f;
@@ -40,8 +51,15 @@ public class PlayerHandler : MonoBehaviour
 
     void Start()
     {
+        spriteR = GetComponent<SpriteRenderer>();
+        
         transform.position = new Vector3(-3,-3,0);
+
         currentHealth = maxHealth;
+        useItem += ItemUsed;
+        useSpell += SpellUsed;
+        enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -104,8 +122,10 @@ public class PlayerHandler : MonoBehaviour
 
     IEnumerator waitIframes(float tickTock)
     {
+        spriteR.sprite = hurtSprite;
         yield return new WaitForSeconds(tickTock);
         invinsibile = false;
+        spriteR.sprite = baseSprite;
     }
 
     IEnumerator parry(float tickTock)
@@ -151,6 +171,26 @@ public class PlayerHandler : MonoBehaviour
             playSound(playerHitSound);
             currentHealth--;
             StartCoroutine(waitIframes(invinsibilityTime));
+        }
+    }
+
+
+
+    
+    void ItemUsed(string name, int healAmount){
+        currentHealth = Mathf.Clamp(currentHealth + healAmount, 0, maxHealth);
+        string healedText = $"{name} healed {healAmount} heart";
+        if (healAmount > 1) healedText += "s";
+        healedText += "!";
+        combatLog.incomingLog?.Invoke(healedText);
+    }
+
+    void SpellUsed(string name, int damageAmount){
+        if (damageAmount < 0){ 
+            ItemUsed(name, -damageAmount);
+        } else {
+            enemy.incomingDamage?.Invoke(damageAmount);
+            combatLog.incomingLog?.Invoke($"{name} dealt {damageAmount} damage!");
         }
     }
 }

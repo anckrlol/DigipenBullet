@@ -20,7 +20,7 @@ public class BulletPatterns : MonoBehaviour
             dScript.parryable = false;
 
             dScript.velocityDirection = new Vector3(0f,-14f,0f);
-            dScript.speed = 10f;
+            dScript.speed = Random.Range(18f,22f);
 
             if (i == 1 || i == 4 || i == 9)
             {
@@ -60,7 +60,7 @@ public class BulletPatterns : MonoBehaviour
                 randomPos = new Vector3(-7f,randomY,0f);
                 dScript.velocityDirection = new Vector3(10f,0f,0f);
                 bulletlol.transform.rotation = Quaternion.Euler(0f,0f,-90f);
-                dScript.speed = 10f;
+                dScript.speed = Random.Range(18f,22f);
                 bulletlol.transform.position = randomPos;
             
 
