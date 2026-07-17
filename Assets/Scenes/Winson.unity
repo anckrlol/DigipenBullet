@@ -331,6 +331,8 @@ MonoBehaviour:
   turnManager: {fileID: 1151237758}
   menuSelectDarken: {fileID: 1358761835}
   currentCanvas: {fileID: 154167467}
+  menuHoverSound: {fileID: 0}
+  menuSelectSound: {fileID: 0}
   inMenu: 0
 --- !u!114 &154167472
 MonoBehaviour:
@@ -1853,7 +1855,7 @@ GameObject:
   - component: {fileID: 1114361630}
   - component: {fileID: 1114361633}
   m_Layer: 0
-  m_Name: TestEnemy
+  m_Name: ScarecrowEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1938,7 +1940,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.65, y: -1, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -2238,16 +2240,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 5
   maxHealth: 5
-  parryCooldown: 1
   upKey: w
   downKey: s
   leftKey: a
   rightKey: d
   parryKey: f
   invinsibilityTime: 1
+  parryCooldown: 1
   defaultParrySize: 0.7
   defaultHurtboxSize: 0.4
   turnManager: {fileID: 1151237758}
+  playerHitSound: {fileID: 0}
+  parryStartSound: {fileID: 0}
+  parryHitSound: {fileID: 0}
+  parryEffect: {fileID: 0}
   parrying: 0
 --- !u!50 &1228649807
 Rigidbody2D:
