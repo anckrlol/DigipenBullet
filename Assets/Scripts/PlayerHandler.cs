@@ -1,13 +1,18 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
     
-    [Header("Health Stats")]
+    [Header("Health Config")]
     public int currentHealth = 5;
     [SerializeField] int maxHealth = 5;
+    public Sprite emptyHeart;
+    public Sprite fullHeart;
+    public Image[] hearts;
+    public bool dead = false;
 
     [Header("Controls")]
     [SerializeField] string upKey = "w";
@@ -22,6 +27,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] float defaultParrySize = 0.7f;
     [SerializeField] float defaultHurtboxSize = 0.4f;
     [SerializeField] private TurnManager turnManager;
+    [SerializeField] private CombatLog combatLog;
 
     [Header("Sound Effects")]
     [SerializeField] AudioClip playerHitSound;
@@ -40,7 +46,6 @@ public class PlayerHandler : MonoBehaviour
     bool canParry = true;
     SpriteRenderer spriteR;
 
-    [SerializeField] private CombatLog combatLog;
     public Action<string, int> useSpell = null;
     public Action<string, int> useItem = null;
     private Enemy enemy;
@@ -112,6 +117,33 @@ public class PlayerHandler : MonoBehaviour
         }
 
 
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < currentHealth)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+
+            if (i < maxHealth)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            dead = true;
+        }
     }
 
     void playSound(AudioClip soundLmao)
