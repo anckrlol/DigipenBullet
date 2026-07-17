@@ -12,18 +12,9 @@ public class Item{
         this.itemName = itemName;
         this.healAmount = healAmount;
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start(){
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
-    }
-
-    // Update is called once per frame
-    void Update(){
-        
-    }
-
+    
     public void Heal(){
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
         player.useItem?.Invoke(itemName, healAmount);
     }
 }

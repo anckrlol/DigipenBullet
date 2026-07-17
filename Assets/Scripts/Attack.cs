@@ -14,12 +14,6 @@ public class Attack : MonoBehaviour
         enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void AttackEnemy(string menu){
         if (menu.Equals("attack")){
             turnManager.startEnemyTurn.Invoke();

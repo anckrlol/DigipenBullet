@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,11 +10,12 @@ public class SpellsMenu : MonoBehaviour{
     private Spell rejuvSpell;
     private bool onSpellsMenu = false;
     private string tabSpace = "    ";
+    public Action<bool> canUseSpell = null;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
-        fireballSpell = new Spell("Fireball", 15);
-        rejuvSpell = new Spell("Rejuvenation", -2);
+        fireballSpell = new Spell("Fireball", 15, 40);
+        rejuvSpell = new Spell("Rejuvenation", -2, 80);
         menuNavigation.menuSelected += DisplaySpells;
     }
 

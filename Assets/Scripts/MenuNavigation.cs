@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 public class MenuNavigation : MonoBehaviour
 {
     [SerializeField] TurnManager turnManager;
-    [SerializeField] Transform menuSelectDarken;
+    [SerializeField] Transform menuSelector;
     [SerializeField] Transform currentCanvas;
     [SerializeField] AudioClip menuHoverSound;
     [SerializeField] AudioClip menuSelectSound;
 
     int currentMenu = 0;
-    Vector2 attackMenuPos = new Vector2(145,-175);
-    Vector2 spellsMenuPos = new Vector2(318,-175);
-    Vector2 itemMenuPos = new Vector2(491,-175);
+    Vector2 attackMenuPos = new Vector2(130,-310);
+    Vector2 spellsMenuPos = new Vector2(310,-310);
+    Vector2 itemMenuPos = new Vector2(490,-310);
     public event Action<string> menuSelected = null;
     public Action<bool> selectorState = null;
     float navigateMenuCooldown = 0.2f;
@@ -65,11 +65,11 @@ public class MenuNavigation : MonoBehaviour
             }
             
             if (currentMenu == 0){
-                menuSelectDarken.position = attackMenuPos;
+                menuSelector.position = attackMenuPos;
             } else if (currentMenu == 1){
-                menuSelectDarken.position = spellsMenuPos;
+                menuSelector.position = spellsMenuPos;
             } else if (currentMenu == 2){
-                menuSelectDarken.position = itemMenuPos;
+                menuSelector.position = itemMenuPos;
             }
         } else {
             SelectorActiveState(false);
@@ -77,6 +77,6 @@ public class MenuNavigation : MonoBehaviour
     }
 
     void SelectorActiveState(bool state){
-        menuSelectDarken.gameObject.SetActive(state);
+        menuSelector.gameObject.SetActive(state);
     }
 }

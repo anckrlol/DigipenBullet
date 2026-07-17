@@ -9,22 +9,17 @@ public class Spell{
     /// Positive is damage, negative is heal
     /// </summary>
     private int damage;
+    private int manaCost;
     private PlayerHandler player;
 
-    public Spell(string spellName, int damage){
+    public Spell(string spellName, int damage, int manaCost){
         this.spellName = spellName;
         this.damage = damage;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
-        Debug.Log(player.gameObject);
+        this.manaCost = manaCost;
     }
 
     public void Attack(){
         player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
-        player.useSpell?.Invoke(spellName, damage);
+        player.useSpell?.Invoke(spellName, damage, manaCost);
     }
 }

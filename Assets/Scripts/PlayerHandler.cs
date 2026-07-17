@@ -9,6 +9,7 @@ public class PlayerHandler : MonoBehaviour
     [Header("Health Config")]
     public int currentHealth = 5;
     [SerializeField] int maxHealth = 5;
+    [SerializeField] Transform heartsContainer;
     public Sprite emptyHeart;
     public Sprite fullHeart;
     public Image[] hearts;
@@ -28,6 +29,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] float defaultHurtboxSize = 0.4f;
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private CombatLog combatLog;
+    [SerializeField] private Mana manaHandler;
 
     [Header("Sound Effects")]
     [SerializeField] AudioClip playerHitSound;
@@ -46,7 +48,7 @@ public class PlayerHandler : MonoBehaviour
     bool canParry = true;
     SpriteRenderer spriteR;
 
-    public Action<string, int> useSpell = null;
+    public Action<string, int, int> useSpell = null;
     public Action<string, int> useItem = null;
     private Enemy enemy;
 
@@ -59,12 +61,10 @@ public class PlayerHandler : MonoBehaviour
         spriteR = GetComponent<SpriteRenderer>();
         
         transform.position = new Vector3(-3,-3,0);
-        player = GetComponent<Player>();
         currentHealth = maxHealth;
         useItem += ItemUsed;
         useSpell += SpellUsed;
         enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
-
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -84,7 +84,7 @@ public class PlayerHandler : MonoBehaviour
 
             if (Input.GetKey(parryKey))
             {
-                StartCoroutine(parry(parryCooldown));
+                StartCoroutine(Parry(parryCooldown));
             }
 
 
@@ -146,7 +146,7 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
-    void playSound(AudioClip soundLmao)
+    void PlaySound(AudioClip soundLmao)
     {
         audioSource.clip = soundLmao;
         audioSource.Play();
@@ -160,11 +160,11 @@ public class PlayerHandler : MonoBehaviour
         spriteR.sprite = baseSprite;
     }
 
-    IEnumerator parry(float tickTock)
+    IEnumerator Parry(float tickTock)
     {
         if (canParry == true && Input.GetKey(parryKey))
         {
-            playSound(parryStartSound);
+            PlaySound(parryStartSound);
             canParry = false;
             parrying = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
@@ -184,45 +184,52 @@ public class PlayerHandler : MonoBehaviour
         if (invinsibile == false && col.tag == "Bullet")
         {
             invinsibile = true;
-            playSound(playerHitSound);
-            currentHealth--;
-            player.hitByBullet?.Invoke(-1);
+            PlaySound(playerHitSound);
+            ChangeHealth(-1);
             StartCoroutine(waitIframes(invinsibilityTime));
         }
         else if (invinsibile == false && parrying == true && col.tag == "ParryableBullet")
         {
-            parryEffect.Clear();
-            parryEffect.Play();
-            playSound(parryHitSound);
+            // parryEffect.Clear();
+            // parryEffect.Play();
+            PlaySound(parryHitSound);
             invinsibile = true;
+            manaHandler.parried?.Invoke();
             StartCoroutine(waitIframes(invinsibilityTime));
         }
         else if (invinsibile == false)
         {
             invinsibile = true;
-            playSound(playerHitSound);
-            currentHealth--;
+            PlaySound(playerHitSound);
+            ChangeHealth(-1);
             StartCoroutine(waitIframes(invinsibilityTime));
         }
     }
-
-
-
     
     void ItemUsed(string name, int healAmount){
-        currentHealth = Mathf.Clamp(currentHealth + healAmount, 0, maxHealth);
+        ChangeHealth(healAmount);
         string healedText = $"{name} healed {healAmount} heart";
         if (healAmount > 1) healedText += "s";
         healedText += "!";
         combatLog.incomingLog?.Invoke(healedText);
     }
 
-    void SpellUsed(string name, int damageAmount){
+    void SpellUsed(string name, int damageAmount, int manaCost){
+        manaHandler.usedSpell.Invoke(manaCost);
         if (damageAmount < 0){ 
             ItemUsed(name, -damageAmount);
         } else {
             enemy.incomingDamage?.Invoke(damageAmount);
             combatLog.incomingLog?.Invoke($"{name} dealt {damageAmount} damage!");
+        }
+    }
+
+    void ChangeHealth(int change){
+        currentHealth = Mathf.Clamp(currentHealth + change, 0, maxHealth);
+        for (int i = 0; i < maxHealth; i++){
+            SpriteRenderer heartSprite = heartsContainer.GetChild(i).GetComponent<SpriteRenderer>();
+            if (i >= currentHealth) heartSprite.sprite = emptyHeart;
+            else heartSprite.sprite = fullHeart;
         }
     }
 }

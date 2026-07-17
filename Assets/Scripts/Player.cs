@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Replaced by the PlayerHandler script.
+/// </summary>
 public class Player : MonoBehaviour{
     private int maxHealth = 5;
     private int currentHealth;
