@@ -13,7 +13,7 @@ public class TurnManager : MonoBehaviour{
     SpriteRenderer enemyActive;
     public Action startEnemyTurn;
     public Action<bool> playerTurnState;
-    Vector2 playerStartPosition = new Vector2(-2.75f, 3);
+    Vector2 playerStartPosition = new Vector2(-2.75f, -3);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
