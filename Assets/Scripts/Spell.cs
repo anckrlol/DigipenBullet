@@ -22,4 +22,16 @@ public class Spell{
         player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
         player.useSpell?.Invoke(spellName, damage, manaCost);
     }
+
+    public string GetSpellName(){ 
+        return spellName;
+    }
+
+    public int GetSpellDamage(){
+        return Mathf.Abs(damage);
+    }
+
+    public int GetManaCost(){
+        return manaCost;
+    }
 }

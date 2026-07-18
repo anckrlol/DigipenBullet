@@ -215,12 +215,11 @@ public class PlayerHandler : MonoBehaviour
     }
 
     void SpellUsed(string name, int damageAmount, int manaCost){
-        manaHandler.usedSpell.Invoke(manaCost);
         if (damageAmount < 0){ 
             ItemUsed(name, -damageAmount);
         } else {
-            enemy.incomingDamage?.Invoke(damageAmount);
             combatLog.incomingLog?.Invoke($"{name} dealt {damageAmount} damage!");
+            enemy.incomingDamage?.Invoke(damageAmount);
         }
     }
 

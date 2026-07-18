@@ -12,7 +12,7 @@ public class Item{
         this.itemName = itemName;
         this.healAmount = healAmount;
     }
-    
+
     public void Heal(){
         player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
         player.useItem?.Invoke(itemName, healAmount);

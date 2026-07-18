@@ -9,6 +9,8 @@ public class Mana : MonoBehaviour{
     private int maxMana = 100;
     private float percentage;
     private float startingXScale;
+    private float manaBarLeftAlignX = 400;
+    private float deltaShift = 75;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -21,7 +23,8 @@ public class Mana : MonoBehaviour{
     void ManaChange(int amt){
         currentMana = Mathf.Clamp(currentMana + amt, 0, maxMana);
         percentage = (float)currentMana / maxMana;
-        manaBar.localScale = new Vector3(startingXScale * percentage, manaBar.localScale.y, manaBar.localScale.z);
+        manaBar.localScale = new Vector2(startingXScale * percentage, manaBar.localScale.y);
+        manaBar.localPosition = new Vector2(manaBarLeftAlignX + deltaShift * percentage, manaBar.localPosition.y);
     }
 
     void GainMana(){
@@ -29,6 +32,10 @@ public class Mana : MonoBehaviour{
     }
 
     void UseMana(int cost){
-        ManaChange(-cost);
+        if (SufficientMana(cost)) ManaChange(-cost);
+    }
+
+    public bool SufficientMana(int cost){
+        return currentMana >= cost;
     }
 }

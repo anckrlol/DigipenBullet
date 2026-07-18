@@ -358,6 +358,7 @@ MonoBehaviour:
   menuNavigation: {fileID: 154167471}
   combatLog: {fileID: 1848169718}
   turnManager: {fileID: 1151237758}
+  manaHandler: {fileID: 154167475}
 --- !u!114 &154167473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2076,7 +2077,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd490fc935d7b4ad1a83d510014092ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatLog: {fileID: 0}
+  combatLog: {fileID: 1848169718}
+  enemyName: Scarecrow
 --- !u!1 &1151237751
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,8 +3548,8 @@ RectTransform:
   m_GameObject: {fileID: 1721172849}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.42, y: 0.42, z: 0.42}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.42, y: 0.42, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 154167467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

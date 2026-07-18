@@ -6,11 +6,11 @@ public class SpellsMenu : MonoBehaviour{
     [SerializeField] private MenuNavigation menuNavigation;
     [SerializeField] private CombatLog combatLog;
     [SerializeField] private TurnManager turnManager;
+    [SerializeField] private Mana manaHandler;
     private Spell fireballSpell;
     private Spell rejuvSpell;
     private bool onSpellsMenu = false;
     private string tabSpace = "    ";
-    public Action<bool> canUseSpell = null;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -38,16 +38,21 @@ public class SpellsMenu : MonoBehaviour{
 
     void DisplaySpells(string menu){
         if (menu == "spells"){
-            combatLog.DisplayMenu($"Fireball (E)\n{tabSpace} 15 damage\nRejuvenation (R)\n{tabSpace} Heal 2");
+            string fireballStats = $"{fireballSpell.GetSpellName()} (E)\n{tabSpace} {fireballSpell.GetSpellDamage()} damage, {fireballSpell.GetManaCost()} mana";
+            string rejuvStats = $"{rejuvSpell.GetSpellName()} (E)\n{tabSpace} Heal {rejuvSpell.GetSpellDamage()} hearts, {rejuvSpell.GetManaCost()} mana";
+            combatLog.DisplayMenu($"{fireballStats}\n{rejuvStats}");
             onSpellsMenu = true;
         }
     }
 
     void AttackWithSpell(Spell spell){
-        turnManager.startEnemyTurn.Invoke();
-        turnManager.playerTurnState.Invoke(false);
-        spell.Attack();
-        onSpellsMenu = false;
-        menuNavigation.inMenu = false;
+        if (manaHandler.SufficientMana(spell.GetManaCost())){
+            manaHandler.usedSpell.Invoke(spell.GetManaCost());
+            turnManager.startEnemyTurn.Invoke();
+            turnManager.playerTurnState.Invoke(false);
+            spell.Attack();
+            onSpellsMenu = false;
+            menuNavigation.inMenu = false;
+        }
     }
 }

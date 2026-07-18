@@ -5,6 +5,9 @@ using UnityEngine;
 public class CombatLog : MonoBehaviour
 {
     private TMP_Text logText;
+    /// <summary>
+    /// Displays the given text to the log.
+    /// </summary>
     public Action<string> incomingLog = null;
     private string[] currentLog = new string[7];
     
@@ -13,12 +16,6 @@ public class CombatLog : MonoBehaviour
     {
         logText = GetComponent<TMP_Text>();
         incomingLog += UpdateLog;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void DisplayMenu(string menuText){
