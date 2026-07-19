@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TurnManager : MonoBehaviour
-{
+public class TurnManager : MonoBehaviour{
     GameObject player;
     GameObject enemy;
     TestEnemyScript enemyAttack;
@@ -14,6 +13,7 @@ public class TurnManager : MonoBehaviour
     SpriteRenderer enemyActive;
     public Action startEnemyTurn;
     public Action<bool> playerTurnState;
+    Vector2 playerStartPosition = new Vector2(-2.75f, -3);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -27,35 +27,13 @@ public class TurnManager : MonoBehaviour
         playerTurnState.Invoke(true);
     }
 
-    // Update is called once per frame
-    void Update(){
-        /*
-        if (playerTurn){
-            Debug.Log("2");
-            enemyActive.color = active;
-            playerActive.color = inactive;
-            enemyTurn = false;
-            teleportOnce = true;
-            playerTurn = false;
-        } else {
-            Debug.Log("1");
-            enemyActive.color = inactive;
-            playerActive.color = active;
-            if (teleportOnce) {
-                player.transform.position = new Vector2(-2.75f, -3);
-                enemyTurn = true;
-            }
-            teleportOnce = false;
-        }*/
-    }
-
     void StartEnemyAttack(){
         playerTurn = false;
         enemyTurn = true;
         enemyAttack.beginAttack?.Invoke();
         enemyActive.enabled = false;
         playerActive.enabled = true;
-        player.transform.position = new Vector2(-2.75f, -3);
+        player.transform.position = playerStartPosition;
     }
 
     void PlayerTurn(bool state){

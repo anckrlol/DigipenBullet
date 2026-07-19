@@ -6790,6 +6790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 5
   maxHealth: 5
+  heartsContainer: {fileID: 0}
   emptyHeart: {fileID: -1184286366367508762, guid: 15492ed0db3a46d4e9a6b31e4cc1abf3, type: 3}
   fullHeart: {fileID: -3296372939809681263, guid: 38e6d0c4a30b2c641b5724f37ca17806, type: 3}
   hearts:
@@ -7776,8 +7777,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6b501f194c78a874eb1873a0daaa44f5, type: 2}
-  m_sharedMaterial: {fileID: -1344222557310046591, guid: 6b501f194c78a874eb1873a0daaa44f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7995,8 +7996,8 @@ MonoBehaviour:
 
     Backspace to exit menu'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6b501f194c78a874eb1873a0daaa44f5, type: 2}
-  m_sharedMaterial: {fileID: -1344222557310046591, guid: 6b501f194c78a874eb1873a0daaa44f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 18276b98826164ae4a46daacc25912e6, type: 2}
+  m_sharedMaterial: {fileID: -7938636198460040066, guid: 18276b98826164ae4a46daacc25912e6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
