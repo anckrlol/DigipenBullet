@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using UnityEngine.UI;
+using UnityEditor.SearchService;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -13,7 +14,6 @@ public class PlayerHandler : MonoBehaviour
     public Sprite emptyHeart;
     public Sprite fullHeart;
     public Image[] hearts;
-    public bool dead = false;
 
     [Header("Controls")]
     [SerializeField] string upKey = "w";
@@ -30,6 +30,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private CombatLog combatLog;
     [SerializeField] private Mana manaHandler;
+    [SerializeField] private SceneLoader sceneLoader;
 
     [Header("Sound Effects")]
     [SerializeField] AudioClip playerHitSound;
@@ -145,7 +146,7 @@ public class PlayerHandler : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            dead = true;
+            sceneLoader.playerDied.Invoke();
         }
 
         if (movingSide == false && movingUp == false)
