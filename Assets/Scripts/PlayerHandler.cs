@@ -198,7 +198,7 @@ public class PlayerHandler : MonoBehaviour
         if (canParry == true && Input.GetKey(parryKey))
         {
             anim.SetBool("Parry",true);
-            playSound(parryStartSound);
+            PlaySound(parryStartSound);
             canParry = false;
             parrying = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;

@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnManager: {fileID: 1151237758}
-  menuSelectDarken: {fileID: 1358761835}
+  menuSelector: {fileID: 1358761835}
   currentCanvas: {fileID: 154167467}
   menuHoverSound: {fileID: 8300000, guid: de41a156f1b6eaf4e93c8503bd8e5886, type: 3}
   menuSelectSound: {fileID: 8300000, guid: 8ed91879d4a4423468ebe79c670db23e, type: 3}
@@ -264,6 +264,7 @@ MonoBehaviour:
   menuNavigation: {fileID: 154167471}
   combatLog: {fileID: 1848169718}
   turnManager: {fileID: 1151237758}
+  manaHandler: {fileID: 0}
 --- !u!114 &154167473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6447,6 +6448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatLog: {fileID: 0}
+  enemyName: 
 --- !u!1 &1132746068
 GameObject:
   m_ObjectHideFlags: 0
@@ -6811,6 +6813,7 @@ MonoBehaviour:
   defaultHurtboxSize: 0.5
   turnManager: {fileID: 1151237758}
   combatLog: {fileID: 1848169718}
+  manaHandler: {fileID: 0}
   playerHitSound: {fileID: 8300000, guid: e5ba980e7871b4d4e8903681bbd9004a, type: 3}
   parryStartSound: {fileID: 8300000, guid: 0f3be1661c71a69428da6d6de25b317e, type: 3}
   parryHitSound: {fileID: 8300000, guid: 42ea78d7c5aa95e4184c47d8d7f5eeb4, type: 3}
