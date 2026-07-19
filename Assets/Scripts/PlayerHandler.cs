@@ -53,13 +53,20 @@ public class PlayerHandler : MonoBehaviour
     private Enemy enemy;
 
     bool invinsibile = false;
+    bool movingUp = false;
+    bool movingSide = false;
     float speed = 5f;
+
+    Animator anim;
+
     AudioSource audioSource;
 
     void Start()
     {
         spriteR = GetComponent<SpriteRenderer>();
         
+        anim = GetComponent<Animator>();
+
         transform.position = new Vector3(-3,-3,0);
         currentHealth = maxHealth;
         useItem += ItemUsed;
@@ -70,6 +77,7 @@ public class PlayerHandler : MonoBehaviour
 
     void Update()
     {
+
         if (turnManager.enemyTurn)
         {
             if (Input.GetKey(KeyCode.LeftShift))
@@ -91,32 +99,63 @@ public class PlayerHandler : MonoBehaviour
             if (Input.GetKey(upKey))
             {
                 transform.position += new Vector3(0f,speed,0f) * Time.deltaTime;
+                anim.SetBool("Up",true);
+                anim.SetBool("Down",false);
+                movingUp = true;
             }
                 else if (Input.GetKey(downKey))
             {
                 transform.position += new Vector3(0f,-speed,0f) * Time.deltaTime;
+                anim.SetBool("Up",false);
+                anim.SetBool("Down",true);
+                movingUp = true;
             }
             else
             {
+                movingUp = false;
                 transform.position += new Vector3(0f,0f,0f);
+                anim.SetBool("Up",false);
+                anim.SetBool("Down",false);
             }
 
 
             if (Input.GetKey(rightKey))
             {
                 transform.position += new Vector3(speed,0f,0f) * Time.deltaTime;
+                anim.SetBool("Left",false);
+                anim.SetBool("Right",true);
+                movingSide = true;
             }
             else if (Input.GetKey(leftKey))
             {
                 transform.position += new Vector3(-speed,0f,0f) * Time.deltaTime;
+                anim.SetBool("Right",false);
+                anim.SetBool("Left",true);
+                movingSide = true;
             }
             else
             {
+                movingSide = false;
                 transform.position += new Vector3(0f,0f,0f);
+                anim.SetBool("Right",false);
+                anim.SetBool("Left",false);
             }
         }
 
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            dead = true;
+        }
 
+        if (movingSide == false && movingUp == false)
+        {
+            anim.SetBool("Idle",true);
+        }
+        else
+        {
+            anim.SetBool("Idle",false);
+        }
 
         for (int i = 0; i < hearts.Length; i++)
         {
@@ -138,12 +177,6 @@ public class PlayerHandler : MonoBehaviour
                 hearts[i].enabled = false;
             }
         }
-
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            dead = true;
-        }
     }
 
     void PlaySound(AudioClip soundLmao)
@@ -164,7 +197,8 @@ public class PlayerHandler : MonoBehaviour
     {
         if (canParry == true && Input.GetKey(parryKey))
         {
-            PlaySound(parryStartSound);
+            anim.SetBool("Parry",true);
+            playSound(parryStartSound);
             canParry = false;
             parrying = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
@@ -173,6 +207,7 @@ public class PlayerHandler : MonoBehaviour
             parrying = false;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
             gameObject.GetComponent<CircleCollider2D>().radius = defaultHurtboxSize;
+            anim.SetBool("Parry",false);
             yield return new WaitForSeconds(tickTock);
             canParry = true;
         }
