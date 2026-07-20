@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - ParryableBullet
   - Bullet
+  - Audio
   layers:
   - Default
   - TransparentFX

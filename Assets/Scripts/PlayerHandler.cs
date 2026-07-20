@@ -1,19 +1,16 @@
 using UnityEngine;
 using System.Collections;
 using System;
-using UnityEngine.UI;
-using UnityEditor.SearchService;
 
 public class PlayerHandler : MonoBehaviour
 {
     
     [Header("Health Config")]
-    public int currentHealth = 5;
+    private int currentHealth = 5;
     [SerializeField] int maxHealth = 5;
     [SerializeField] Transform heartsContainer;
-    public Sprite emptyHeart;
-    public Sprite fullHeart;
-    public Image[] hearts;
+    [SerializeField] Sprite emptyHeart;
+    [SerializeField] Sprite fullHeart;
 
     [Header("Controls")]
     [SerializeField] string upKey = "w";
@@ -30,12 +27,13 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private CombatLog combatLog;
     [SerializeField] private Mana manaHandler;
-    [SerializeField] private SceneLoader sceneLoader;
 
     [Header("Sound Effects")]
     [SerializeField] AudioClip playerHitSound;
     [SerializeField] AudioClip parryStartSound;
     [SerializeField] AudioClip parryHitSound;
+    [SerializeField] AudioClip healSound;
+    [SerializeField] AudioClip backgroundSong;
 
     [Header("Particles")]
     [SerializeField] ParticleSystem parryEffect;
@@ -49,9 +47,12 @@ public class PlayerHandler : MonoBehaviour
     bool canParry = true;
     SpriteRenderer spriteR;
 
-    public Action<string, int, int> useSpell = null;
+    public Action<string, int> useSpell = null;
     public Action<string, int> useItem = null;
+    public Action<bool> toggleBGM = null;
+
     private Enemy enemy;
+    private SceneLoader sceneLoader;
 
     bool invinsibile = false;
     bool movingUp = false;
@@ -74,6 +75,8 @@ public class PlayerHandler : MonoBehaviour
         useSpell += SpellUsed;
         enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
         audioSource = GetComponent<AudioSource>();
+        sceneLoader = GameObject.FindWithTag("GameController").GetComponent<SceneLoader>();
+
     }
 
     void Update()
@@ -157,27 +160,6 @@ public class PlayerHandler : MonoBehaviour
         {
             anim.SetBool("Idle",false);
         }
-
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if (i < currentHealth)
-            {
-                hearts[i].sprite = fullHeart;
-            }
-            else
-            {
-                hearts[i].sprite = emptyHeart;
-            }
-
-            if (i < maxHealth)
-            {
-                hearts[i].enabled = true;
-            }
-            else
-            {
-                hearts[i].enabled = false;
-            }
-        }
     }
 
     void PlaySound(AudioClip soundLmao)
@@ -202,11 +184,9 @@ public class PlayerHandler : MonoBehaviour
             PlaySound(parryStartSound);
             canParry = false;
             parrying = true;
-            gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
             gameObject.GetComponent<CircleCollider2D>().radius = defaultParrySize;
             yield return new WaitForSeconds(0.4f);
             parrying = false;
-            gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
             gameObject.GetComponent<CircleCollider2D>().radius = defaultHurtboxSize;
             anim.SetBool("Parry",false);
             yield return new WaitForSeconds(tickTock);
@@ -244,13 +224,14 @@ public class PlayerHandler : MonoBehaviour
     
     void ItemUsed(string name, int healAmount){
         ChangeHealth(healAmount);
+        PlaySound(healSound);
         string healedText = $"{name} healed {healAmount} heart";
         if (healAmount > 1) healedText += "s";
         healedText += "!";
         combatLog.incomingLog?.Invoke(healedText);
     }
 
-    void SpellUsed(string name, int damageAmount, int manaCost){
+    void SpellUsed(string name, int damageAmount){
         if (damageAmount < 0){ 
             ItemUsed(name, -damageAmount);
         } else {
@@ -266,5 +247,14 @@ public class PlayerHandler : MonoBehaviour
             if (i >= currentHealth) heartSprite.sprite = emptyHeart;
             else heartSprite.sprite = fullHeart;
         }
+    }
+
+    public bool AtMaxHealth(){
+        return currentHealth == maxHealth;
+    }
+
+    void StartBackgroundSong()
+    {
+        PlaySound(backgroundSong);
     }
 }

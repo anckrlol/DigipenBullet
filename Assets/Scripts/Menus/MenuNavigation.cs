@@ -35,33 +35,33 @@ public class MenuNavigation : MonoBehaviour
     void Update(){
         navigateTimer += Time.deltaTime;
         if (turnManager.playerTurn){
-            if (!inMenu) SelectorActiveState(true);
-            if (Keyboard.current.aKey.isPressed && navigateTimer > navigateMenuCooldown){
-                audioSource.clip = menuHoverSound;
-                audioSource.Play();
-                currentMenu--;
-                if (currentMenu < 0) currentMenu += 3;
-                navigateTimer = 0;
-            } else if (Keyboard.current.dKey.isPressed && navigateTimer > navigateMenuCooldown){
-                audioSource.clip = menuHoverSound;
-                audioSource.Play();
-                currentMenu++;
-                if (currentMenu > 2) currentMenu -= 3;
-                navigateTimer = 0;
-            } else if (Keyboard.current.enterKey.isPressed && !inMenu){
-                audioSource.clip = menuSelectSound;
-                audioSource.Play();
-                if (currentMenu != 2){ //temporarily make items menu not functional
+            if (!inMenu){
+                SelectorActiveState(true);
+                if (Keyboard.current.aKey.isPressed && navigateTimer > navigateMenuCooldown){
+                    audioSource.clip = menuHoverSound;
+                    audioSource.Play();
+                    currentMenu--;
+                    if (currentMenu < 0) currentMenu += 3;
+                    navigateTimer = 0;
+                } else if (Keyboard.current.dKey.isPressed && navigateTimer > navigateMenuCooldown){
+                    audioSource.clip = menuHoverSound;
+                    audioSource.Play();
+                    currentMenu++;
+                    if (currentMenu > 2) currentMenu -= 3;
+                    navigateTimer = 0;
+                } else if (Keyboard.current.enterKey.isPressed){
                     SelectorActiveState(false);
                     inMenu = true;
+                    audioSource.clip = menuSelectSound;
+                    audioSource.Play();
+                    if (currentMenu == 0){
+                        menuSelected?.Invoke("attack");
+                    } else if (currentMenu == 1){
+                        menuSelected?.Invoke("spells");
+                    } else if (currentMenu == 2){
+                        menuSelected?.Invoke("items");
+                    }
                 }
-                if (currentMenu == 0){
-                    menuSelected?.Invoke("attack");
-                } else if (currentMenu == 1){
-                    menuSelected?.Invoke("spells");
-                } /*else if (currentMenu == 2){
-                    menuSelected?.Invoke("items");
-                }*/
             }
             
             if (currentMenu == 0){

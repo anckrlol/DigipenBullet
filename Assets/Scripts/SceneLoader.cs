@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public Action playerDied = null;
+    public Action startGame = null;
     private static SceneLoader sceneLoader;
+    private PlayBGM bgmPlayer;
 
     void Awake()
     {
@@ -20,13 +22,11 @@ public class SceneLoader : MonoBehaviour
     void Start()
     {
         playerDied += PlayerDied;
-        
+        startGame += GameStart;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void GameStart(){
+        SceneManager.LoadScene("Winson");
     }
 
     void PlayerDied(){

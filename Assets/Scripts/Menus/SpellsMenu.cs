@@ -7,10 +7,13 @@ public class SpellsMenu : MonoBehaviour{
     [SerializeField] private CombatLog combatLog;
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private Mana manaHandler;
+    [SerializeField] private PlayerHandler playerHandler;
     private Spell fireballSpell;
     private Spell rejuvSpell;
     private bool onSpellsMenu = false;
-    private string tabSpace = "    ";
+    private const string TabSpace = "    ";
+    private float backOutCooldown = 0.25f;
+    private float backOutTimer = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -21,6 +24,7 @@ public class SpellsMenu : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
+        backOutTimer += Time.deltaTime;
         if (onSpellsMenu){
             if (Keyboard.current.eKey.isPressed){
                 AttackWithSpell(fireballSpell);
@@ -28,18 +32,22 @@ public class SpellsMenu : MonoBehaviour{
                 AttackWithSpell(rejuvSpell);
             }
 
-            if (Keyboard.current.backspaceKey.isPressed){
+            if (Keyboard.current.backspaceKey.isPressed && backOutTimer > backOutCooldown){
+                backOutTimer = 0;
                 combatLog.DisplayLog();
                 menuNavigation.selectorState.Invoke(true);
                 menuNavigation.inMenu = false;
+                onSpellsMenu = false;
             }
         }
     }
 
     void DisplaySpells(string menu){
         if (menu == "spells"){
-            string fireballStats = $"{fireballSpell.GetSpellName()} (E)\n{tabSpace} {fireballSpell.GetSpellDamage()} damage, {fireballSpell.GetManaCost()} mana";
-            string rejuvStats = $"{rejuvSpell.GetSpellName()} (E)\n{tabSpace} Heal {rejuvSpell.GetSpellDamage()} hearts, {rejuvSpell.GetManaCost()} mana";
+            string fireballStats = $"{fireballSpell.GetSpellName()} (E key)\n";
+            fireballStats += $"{TabSpace} {fireballSpell.GetSpellDamage()} damage, {fireballSpell.GetManaCost()} mana";
+            string rejuvStats = $"{rejuvSpell.GetSpellName()} (R key)\n";
+            rejuvStats += $"{TabSpace} Heal {Mathf.Abs(rejuvSpell.GetSpellDamage())} hearts, {rejuvSpell.GetManaCost()} mana";
             combatLog.DisplayMenu($"{fireballStats}\n{rejuvStats}");
             onSpellsMenu = true;
         }
@@ -47,12 +55,15 @@ public class SpellsMenu : MonoBehaviour{
 
     void AttackWithSpell(Spell spell){
         if (manaHandler.SufficientMana(spell.GetManaCost())){
-            manaHandler.usedSpell.Invoke(spell.GetManaCost());
-            turnManager.startEnemyTurn.Invoke();
-            turnManager.playerTurnState.Invoke(false);
-            spell.Attack();
-            onSpellsMenu = false;
-            menuNavigation.inMenu = false;
+            //Check for if the spell is a heal spell, if the player is at full health, do not use the spell
+            if (spell.GetSpellDamage() > 0 || (spell.GetSpellDamage() < 0 && !playerHandler.AtMaxHealth())){
+                manaHandler.usedSpell.Invoke(spell.GetManaCost());
+                turnManager.startEnemyTurn.Invoke();
+                turnManager.playerTurnState.Invoke(false);
+                spell.Attack();
+                onSpellsMenu = false;
+                menuNavigation.inMenu = false;
+            }
         }
     }
 }

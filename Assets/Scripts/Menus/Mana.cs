@@ -27,7 +27,7 @@ public class Mana : MonoBehaviour{
     }
 
     void GainMana(){
-        ManaChange(20);
+        ManaChange(10);
     }
 
     void UseMana(int cost){
