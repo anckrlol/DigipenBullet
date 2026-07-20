@@ -7,11 +7,9 @@ public class TestEnemyScript : MonoBehaviour
     [SerializeField] private BulletPatterns johnBullets;
     [SerializeField] private TurnManager turnManager;
     public Action beginAttack;
-    private Enemy enemyState;
 
     void Start(){
         beginAttack += EnemyTurn;
-        enemyState = GetComponent<Enemy>();
     }
 
     public IEnumerator Attack()
@@ -28,9 +26,7 @@ public class TestEnemyScript : MonoBehaviour
     }
     
     void EnemyTurn(){
-        if (!enemyState.dead){
-            StartCoroutine(Attack());
-            StartCoroutine(AttackFinished());
-        }
+        StartCoroutine(Attack());
+        StartCoroutine(AttackFinished());
     }
 }

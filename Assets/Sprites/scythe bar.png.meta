@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 816f24209ef2e4239b78185948e31325
+guid: 2292a2c8876e24a2f8b78e40724a2bb2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2678498615165238795
-    second: Blade_0
+      213: 3834772614054819524
+    second: scythe bar_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blade_0
+      name: scythe bar_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 18
-        width: 290
-        height: 765
+        x: 0
+        y: 0
+        width: 416
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f143b763bf04dad0800000000000000
-      internalID: -2678498615165238795
+      spriteID: 4c6322fff59d73530800000000000000
+      internalID: 3834772614054819524
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Blade_0: -2678498615165238795
+      scythe bar_0: 3834772614054819524
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
