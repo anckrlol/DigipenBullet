@@ -47,6 +47,6 @@ public class CombatLog : MonoBehaviour
         for (int i = 0; i < currentLog.Length-1; i++){
             currentLog[i] = currentLog[i+1];
         }
-        currentLog[currentLog.Length-1] = lineToInsert;
+        currentLog[^1] = lineToInsert;
     }
 }
