@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour{
     GameObject player;
     GameObject enemy;
+    Enemy enemyState;
     TestEnemyScript enemyAttack;
     public bool playerTurn = true;
     public bool enemyTurn = false;
@@ -22,18 +24,14 @@ public class TurnManager : MonoBehaviour{
         playerActive = player.GetComponent<SpriteRenderer>();
         enemyActive = enemy.GetComponent<SpriteRenderer>();
         enemyAttack = enemy.GetComponent<TestEnemyScript>();
+        enemyState = enemy.GetComponent<Enemy>();
         startEnemyTurn += StartEnemyAttack;
         playerTurnState += PlayerTurn;
         playerTurnState.Invoke(true);
     }
 
     void StartEnemyAttack(){
-        playerTurn = false;
-        enemyTurn = true;
-        enemyAttack.beginAttack?.Invoke();
-        enemyActive.enabled = false;
-        playerActive.enabled = true;
-        player.transform.position = playerStartPosition;
+        StartCoroutine(AttackBuffer());
     }
 
     void PlayerTurn(bool state){
@@ -44,6 +42,18 @@ public class TurnManager : MonoBehaviour{
         } else {
             playerTurn = false;
             enemyTurn = true;
+        }
+    }
+
+    IEnumerator AttackBuffer(){
+        yield return new WaitForSeconds(0.1f);
+        if (!enemyState.dead){
+            playerTurn = false;
+            enemyTurn = true;
+            enemyAttack.beginAttack?.Invoke();
+            enemyActive.enabled = false;
+            playerActive.enabled = true;
+            player.transform.position = playerStartPosition;
         }
     }
 }

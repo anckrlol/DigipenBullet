@@ -4,7 +4,6 @@ public class PlayBGM : MonoBehaviour
 {
     [SerializeField] AudioClip bgm;
     AudioSource bgmPlayer;
-    SceneLoader sceneLoader;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

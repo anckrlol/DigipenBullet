@@ -10,6 +10,6 @@ public class Restart : MonoBehaviour
     }
 
     public void RestartGame(){
-        sceneLoader.startGame.Invoke();
+        sceneLoader.startGame.Invoke(sceneLoader.lastDied);
     }
 }

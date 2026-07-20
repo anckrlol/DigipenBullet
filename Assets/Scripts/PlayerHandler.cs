@@ -33,7 +33,6 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] AudioClip parryStartSound;
     [SerializeField] AudioClip parryHitSound;
     [SerializeField] AudioClip healSound;
-    [SerializeField] AudioClip backgroundSong;
 
     [Header("Particles")]
     [SerializeField] ParticleSystem parryEffect;
@@ -168,7 +167,7 @@ public class PlayerHandler : MonoBehaviour
         audioSource.Play();
     }
 
-    IEnumerator waitIframes(float tickTock)
+    IEnumerator WaitIFrames(float tickTock)
     {
         spriteR.sprite = hurtSprite;
         yield return new WaitForSeconds(tickTock);
@@ -202,7 +201,7 @@ public class PlayerHandler : MonoBehaviour
             invinsibile = true;
             PlaySound(playerHitSound);
             ChangeHealth(-1);
-            StartCoroutine(waitIframes(invinsibilityTime));
+            StartCoroutine(WaitIFrames(invinsibilityTime));
         }
         else if (invinsibile == false && parrying == true && col.tag == "ParryableBullet")
         {
@@ -211,14 +210,14 @@ public class PlayerHandler : MonoBehaviour
             PlaySound(parryHitSound);
             invinsibile = true;
             manaHandler.parried?.Invoke();
-            StartCoroutine(waitIframes(invinsibilityTime));
+            StartCoroutine(WaitIFrames(invinsibilityTime));
         }
         else if (invinsibile == false)
         {
             invinsibile = true;
             PlaySound(playerHitSound);
             ChangeHealth(-1);
-            StartCoroutine(waitIframes(invinsibilityTime));
+            StartCoroutine(WaitIFrames(invinsibilityTime));
         }
     }
     
@@ -251,10 +250,5 @@ public class PlayerHandler : MonoBehaviour
 
     public bool AtMaxHealth(){
         return currentHealth == maxHealth;
-    }
-
-    void StartBackgroundSong()
-    {
-        PlaySound(backgroundSong);
     }
 }

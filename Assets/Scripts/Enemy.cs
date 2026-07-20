@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour{
     [SerializeField] Transform enemyHealthBar;
-    private int maxHealth = 50;
+    [SerializeField] int maxHealth;
     private int currentHealth;
     public Action<int> incomingDamage;
     [SerializeField] private CombatLog combatLog;
     [SerializeField] private string enemyName;
     private float leftAlignX = -385;
     private float centerX = -260;
+    public bool dead = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour{
     void TakeDamage(int damage){
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
         if (currentHealth <= 0){
+            dead = true;
             combatLog.incomingLog?.Invoke($"You defeated the {enemyName}!");
         }
         float percentage = (float)currentHealth / maxHealth;

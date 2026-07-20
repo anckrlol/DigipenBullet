@@ -9,6 +9,6 @@ public class StartGame : MonoBehaviour
     }
 
     public void GameStart(){
-        sceneLoader.startGame.Invoke();
+        sceneLoader.startGame.Invoke("Winson");
     }
 }

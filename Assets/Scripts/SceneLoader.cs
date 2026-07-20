@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public Action playerDied = null;
-    public Action startGame = null;
-    private static SceneLoader sceneLoader;
-    private PlayBGM bgmPlayer;
+    public Action<string> startGame = null;
+    public bool firstTime = true;
+    public string lastDied;
 
     void Awake()
     {
@@ -22,14 +22,16 @@ public class SceneLoader : MonoBehaviour
     void Start()
     {
         playerDied += PlayerDied;
-        startGame += GameStart;
+        startGame += SceneStart;
     }
 
-    void GameStart(){
-        SceneManager.LoadScene("Winson");
+    void SceneStart(string sceneName){
+        SceneManager.LoadScene(sceneName);
     }
 
     void PlayerDied(){
+        lastDied = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("EndScreen");
+        firstTime = false;
     }
 }

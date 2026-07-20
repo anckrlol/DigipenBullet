@@ -1906,8 +1906,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealthBar: {fileID: 1112718757}
+  maxHealth: 50
   combatLog: {fileID: 1848169718}
   enemyName: Scarecrow
+  dead: 0
 --- !u!1 &1134832512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,7 +2338,6 @@ MonoBehaviour:
   parryStartSound: {fileID: 8300000, guid: fdef1d80903e34350b22cd326676f097, type: 3}
   parryHitSound: {fileID: 8300000, guid: 42ea78d7c5aa95e4184c47d8d7f5eeb4, type: 3}
   healSound: {fileID: 8300000, guid: d72845c3432a2ff4a96cb26119e4abe7, type: 3}
-  backgroundSong: {fileID: 8300000, guid: 477de155c3b6c45afa3f3e6776c2ce6c, type: 3}
   parryEffect: {fileID: 0}
   baseSprite: {fileID: -5372920564066432229, guid: 1a19e720aff37d14f90fe0886a7f1177, type: 3}
   hurtSprite: {fileID: 3513137472396048495, guid: 4f0af489d7feb4c49aad221c205a29f2, type: 3}
@@ -3647,7 +3648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de80d0f0a131c4c00bb9aef4ff60daba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatLog: {fileID: 0}
+  loadIntro: 0
   readyToStart: 0
 --- !u!1 &1851188264
 GameObject:

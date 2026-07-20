@@ -16,11 +16,11 @@ public class Attack : MonoBehaviour
 
     void AttackEnemy(string menu){
         if (menu.Equals("attack")){
+            combatLog.incomingLog?.Invoke($"You dealt {damage} damage!");
+            enemy.incomingDamage?.Invoke(damage);
             turnManager.startEnemyTurn.Invoke();
             turnManager.playerTurnState.Invoke(false);
-            enemy.incomingDamage?.Invoke(damage);
             menuNavigation.inMenu = false;
-            combatLog.incomingLog?.Invoke($"You dealt {damage} damage!");
         }
     }
 }

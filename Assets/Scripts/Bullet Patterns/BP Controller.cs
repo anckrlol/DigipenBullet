@@ -5,7 +5,7 @@ using UnityEngine;
 public class BPController : MonoBehaviour
 {
 
-    int pattern = 2;
+    public int pattern = 1;
 
     int bp2_count = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created

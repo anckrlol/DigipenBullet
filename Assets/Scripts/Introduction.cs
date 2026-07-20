@@ -2,19 +2,17 @@ using System.Collections;
 using UnityEngine;
 
 public class Introduction : MonoBehaviour{
+    [SerializeField] bool loadIntro = true;
     private CombatLog combatLog;
+    private SceneLoader sceneLoader;
     public bool readyToStart = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         combatLog = GetComponent<CombatLog>();
-        StartCoroutine(DisplayIntro());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        sceneLoader = GameObject.FindWithTag("GameController").GetComponent<SceneLoader>();
+        if (sceneLoader.firstTime && loadIntro) StartCoroutine(DisplayIntro());
+        else readyToStart = true;
     }
 
     IEnumerator DisplayIntro(){
