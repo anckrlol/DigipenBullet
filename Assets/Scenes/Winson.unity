@@ -343,6 +343,7 @@ MonoBehaviour:
   currentCanvas: {fileID: 154167467}
   menuHoverSound: {fileID: 8300000, guid: d953f3337427a0b4aabcb170ae5182d5, type: 3}
   menuSelectSound: {fileID: 8300000, guid: 8ed91879d4a4423468ebe79c670db23e, type: 3}
+  intro: {fileID: 1848169721}
   inMenu: 0
 --- !u!114 &154167472
 MonoBehaviour:
@@ -3495,6 +3496,7 @@ GameObject:
   - component: {fileID: 1848169720}
   - component: {fileID: 1848169719}
   - component: {fileID: 1848169718}
+  - component: {fileID: 1848169721}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3511,14 +3513,14 @@ RectTransform:
   m_GameObject: {fileID: 1848169716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.222222, y: 2.222222, z: 2.222222}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1492152420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44.444427, y: -44.444443}
+  m_AnchoredPosition: {x: 40, y: -50}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848169718
@@ -3633,6 +3635,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848169716}
   m_CullTransparentMesh: 1
+--- !u!114 &1848169721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848169716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de80d0f0a131c4c00bb9aef4ff60daba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatLog: {fileID: 0}
+  readyToStart: 0
 --- !u!1 &1851188264
 GameObject:
   m_ObjectHideFlags: 0

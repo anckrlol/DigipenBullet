@@ -9,6 +9,7 @@ public class MenuNavigation : MonoBehaviour
     [SerializeField] Transform currentCanvas;
     [SerializeField] AudioClip menuHoverSound;
     [SerializeField] AudioClip menuSelectSound;
+    [SerializeField] Introduction intro;
 
     int currentMenu = 0;
     Vector2 attackMenuPos = new Vector2(130,-310);
@@ -34,7 +35,7 @@ public class MenuNavigation : MonoBehaviour
     // Update is called once per frame
     void Update(){
         navigateTimer += Time.deltaTime;
-        if (turnManager.playerTurn){
+        if (intro.readyToStart && turnManager.playerTurn){
             if (!inMenu){
                 SelectorActiveState(true);
                 if (Keyboard.current.aKey.isPressed && navigateTimer > navigateMenuCooldown){
